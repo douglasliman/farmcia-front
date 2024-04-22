@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
+import { buscar } from "../../services/Services";
 
 export interface CategoriaProp {
   id: number;
@@ -8,16 +9,10 @@ export interface CategoriaProp {
 
 const GetAllCategorias: React.FC = () => {
   const [categorias, setCategorias] = useState<CategoriaProp[]>([]);
-
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await axios.get("/categorias");
-        if (Array.isArray(response.data)) {
-          setCategorias(response.data);
-        } else {
-          console.error("A resposta da API não é um array:", response.data);
-        }
+        await buscar("/categorias", (data: unknown) => setCategorias(data as CategoriaProp[]), {}); 
       } catch (error) {
         console.error("Erro ao buscar categorias:", error);
       }

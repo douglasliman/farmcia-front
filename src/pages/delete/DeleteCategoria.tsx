@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import { deletar } from "../../services/Services";
 
 interface DeleteCategoriaProps {
   id?: number;
@@ -9,7 +9,7 @@ interface DeleteCategoriaProps {
 const DeleteCategoria: React.FC<DeleteCategoriaProps> = ({ id, name }) => {
   const handleDelete = async () => {
     try {
-      await axios.delete(`/categorias/${id}`);
+      await deletar(`/categorias/${id}`, {});
       console.log("Categoria deletada:", name);
     } catch (error) {
       console.error("Erro ao deletar categoria:", error);

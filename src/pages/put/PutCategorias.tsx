@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { buscar } from "../../services/Services";
 interface PutCategoriaProps {
   id?: number;
 }
@@ -10,9 +11,14 @@ const PutCategoria: React.FC<PutCategoriaProps> = ({ id }) => {
   useEffect(() => {
     const fetchCategoria = async () => {
       try {
-        const response = await axios.get(`/categorias/${id}`);
-        setNome(response.data.nome);
-        setLoading(false);
+        await buscar(
+          `/categorias/${id}`,
+          (data: any) => {
+            setNome(data.nome);
+            setLoading(false);
+          },
+          {}
+        ); // Usando a função buscar do serviço para obter os dados da categoria
       } catch (error) {
         console.error("Erro ao buscar categoria:", error);
       }

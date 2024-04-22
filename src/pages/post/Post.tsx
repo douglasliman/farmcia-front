@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+
+import { cadastrar } from "../../services/Services";
 
 const PostCategoria: React.FC = () => {
   const [nome, setNome] = useState("");
@@ -7,7 +8,7 @@ const PostCategoria: React.FC = () => {
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("/categorias", { nome });
+      await cadastrar("/categorias", { nome }, () => {}, {});
       console.log("Nova categoria criada!");
       setNome("");
     } catch (error) {
